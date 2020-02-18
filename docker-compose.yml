@@ -1,0 +1,30 @@
+version: '3.7'
+
+# Define services
+services:
+
+  # Database Service (Mysql)
+  mysql:
+    image: mysql:8.0.19
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: authz
+      MYSQL_USER: root
+      MYSQL_PASSWORD: toor
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./docker/mysql/scripts:/docker-entrypoint-initdb.d
+      - mysql-data:/var/lib/mysql
+    networks:
+      - server
+
+# Volumes
+volumes:
+  mysql-data:
+
+# Networks to be created to facilitate communication between containers
+networks:
+  server:
+  console:
